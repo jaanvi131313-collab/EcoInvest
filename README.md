@@ -23,4 +23,24 @@ Ecoinvest bridges this gap by combining AI + ESG insights:
 
 - Simple interface for non-experts to create ethical portfolios.
 
+FEATURES
+
+-🌍 ESG Scoring  
+AI assigns ethical scores to companies based on Environmental, Social, and Governance factors.
+
+🎛 Custom Ethical Preferences  
+Users can select values such as “Avoid fossil fuels” or “Support women-led companies” to personalize recommendations.
+
+📊 Portfolio Recommendations  
+Generates a list of companies and investment options aligned with both user ethics and financial goals.
+
+🖥 Interactive Dashboard  
+Simple, clean interface built with Streamlit for non-experts to explore results easily.
+
+🔎 AI-Powered Analysis  
+Uses NLP to scan sustainability reports, news articles, and ESG datasets for deeper insights.
+
+⚡ Quick Setup  
+Lightweight MVP:runs locally or can be deployed online with minimal configuration.
+
 
