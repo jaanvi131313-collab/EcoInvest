@@ -2,7 +2,7 @@
 EcoInvest , A tool that helps individuals align investments with their ethical values and financial goals. It uses AI to analyze companies based on ESG factors ; environmental impact, sustainability, diversity, and governance and recommends portfolios that avoid harmful industries while supporting responsible, sustainable businesses.
 
 
-PROBLEM STATEMENT
+**PROBLEM STATEMENT**
 
 Traditional investing focuses primarily on financial returns, often overlooking the ethical and social impact of companies. Investors who want their money to reflect their values face challenges:
 
@@ -13,7 +13,7 @@ Traditional investing focuses primarily on financial returns, often overlooking 
 - Difficulty in balancing ethics with profitability.
 
 
-SOLUTION
+**SOLUTION**
 
 Ecoinvest bridges this gap by combining AI + ESG insights:
 
@@ -23,7 +23,7 @@ Ecoinvest bridges this gap by combining AI + ESG insights:
 
 - Simple interface for non-experts to create ethical portfolios.
 
-FEATURES
+**FEATURES**
 
 🌍 ESG Scoring  
 AI assigns ethical scores to companies based on Environmental, Social, and Governance factors.
