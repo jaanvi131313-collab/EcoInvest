@@ -25,7 +25,7 @@ Ecoinvest bridges this gap by combining AI + ESG insights:
 
 FEATURES
 
--🌍 ESG Scoring  
+🌍 ESG Scoring  
 AI assigns ethical scores to companies based on Environmental, Social, and Governance factors.
 
 🎛 Custom Ethical Preferences  
