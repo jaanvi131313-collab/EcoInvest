@@ -1,0 +1,2315 @@
+git init
+git add .
+git commit -m "Initial commit for EthosInvest site"
+git branch -M main
+git remote add origin https://github.com/jaanvi131313-collab/EcoInvest.git
+git push -u origin main
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoInvest | Sustainable Investing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <style>
+        :root {
+            --primary: #10B981;
+            --primary-dark: #059669;
+            --primary-light: #D1FAE5;
+            --secondary: #0F766E;
+            --dark: #111827;
+            --light: #F9FAFB;
+            --gray: #6B7280;
+            --gray-light: #E5E7EB;
+            --white: #FFFFFF;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            padding: 16px 0;
+        }
+
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+
+        .logo i {
+            font-size: 28px;
+        }
+
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: var(--transition);
+            position: relative;
+            padding: 8px 0;
+        }
+
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+
+        /* Hero */
+        .hero {
+            padding: 160px 0 100px;
+            background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(16, 185, 129, 0.05) 100%);
+        }
+
+
+        .hero-content {
+            max-width: 640px;
+            position: relative;
+            z-index: 1;
+        }
+
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 24px;
+            color: var(--dark);
+            line-height: 1.1;
+        }
+
+
+        .hero p {
+            font-size: 18px;
+            color: var(--gray);
+            margin-bottom: 40px;
+            max-width: 540px;
+        }
+
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+
+        .section-title h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+            color: var(--dark);
+        }
+
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+
+        /* Features Tabs */
+        .features-tabs {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+
+        .tabs-header {
+            display: flex;
+            background: var(--light);
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+
+        .tab-btn {
+            flex: 1;
+            padding: 24px;
+            background: none;
+            border: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+        }
+
+
+        .tab-btn:hover {
+            color: var(--dark);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background: var(--white);
+        }
+
+
+        .tab-content {
+            padding: 40px;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+
+        .tab-content.active {
+            display: block;
+        }
+
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        /* Comparison Tool */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+
+        .comparison-card {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 32px;
+            border: 1px solid var(--gray-light);
+            transition: var(--transition);
+        }
+
+
+        .comparison-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+
+        .comparison-card h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+
+        .metric-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+
+        .metric-item:last-child {
+            border-bottom: none;
+        }
+
+
+        .metric-name {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+
+        .metric-value {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+
+        /* Portfolio */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+
+        @media (max-width: 968px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        .portfolio-input {
+            background: var(--light);
+            padding: 32px;
+            border-radius: var(--radius);
+        }
+
+
+        .portfolio-results {
+            background: var(--white);
+            padding: 32px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+        }
+
+
+        /* Charts */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        .chart-card {
+            background: var(--white);
+            padding: 32px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+        }
+
+
+        .chart-card h3 {
+            font-size: 18px;
+            margin-bottom: 24px;
+            color: var(--dark);
+        }
+
+
+        /* Table */
+        .table-container {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+
+        thead {
+            background: var(--light);
+        }
+
+
+        th {
+            padding: 20px 24px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+
+        td {
+            padding: 20px 24px;
+            border-top: 1px solid var(--gray-light);
+        }
+
+
+        tr:hover {
+            background: var(--primary-light);
+        }
+
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+
+        .badge-green {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+
+
+        .badge-gray {
+            background: var(--gray-light);
+            color: var(--gray);
+        }
+
+
+        /* Filters */
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+
+        .filter-group label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+
+        .filter-group select,
+        .filter-group input {
+            padding: 12px 16px;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+
+        .filter-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 80px 0 32px;
+        }
+
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 64px;
+            margin-bottom: 64px;
+        }
+
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+
+        .footer-logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+
+        .footer-logo i {
+            font-size: 32px;
+        }
+
+
+        .footer-description {
+            color: #9CA3AF;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+
+        .footer-links h4,
+        .footer-contact h4 {
+            font-size: 18px;
+            margin-bottom: 24px;
+            color: var(--white);
+        }
+
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+
+        .footer-links a {
+            color: #9CA3AF;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+
+        .footer-contact p {
+            color: #9CA3AF;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+
+        .footer-contact i {
+            width: 20px;
+            color: var(--primary);
+        }
+
+
+        .footer-creators {
+            text-align: center;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #9CA3AF;
+            font-size: 14px;
+        }
+
+
+        .creator-names {
+            margin-top: 8px;
+            color: var(--white);
+            font-weight: 500;
+        }
+
+
+        /* AI Chatbot Styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 1001;
+            font-family: 'Inter', sans-serif;
+        }
+
+
+        .chatbot-toggle {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+
+
+        .chatbot-toggle:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+
+        .chatbot-toggle.pulse {
+            animation: pulse 2s infinite;
+        }
+
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
+        }
+
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 380px;
+            height: 500px;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid var(--gray-light);
+        }
+
+
+        .chatbot-window.active {
+            display: flex;
+        }
+
+
+        .chatbot-header {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+        .chatbot-header h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 0;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+
+        .message {
+            margin-bottom: 16px;
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+
+        .message-content {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+
+        .message.bot .message-content {
+            background: white;
+            border: 1px solid var(--gray-light);
+            border-top-left-radius: 4px;
+        }
+
+
+        .message.user .message-content {
+            background: var(--primary);
+            color: white;
+            border-top-right-radius: 4px;
+        }
+
+
+        .message-typing {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 12px 16px;
+            background: white;
+            border: 1px solid var(--gray-light);
+            border-radius: 18px;
+            border-top-left-radius: 4px;
+            width: fit-content;
+        }
+
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--gray);
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+
+        .chatbot-input {
+            padding: 20px;
+            border-top: 1px solid var(--gray-light);
+            display: flex;
+            gap: 10px;
+            background: white;
+        }
+
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+
+        .chatbot-input input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+
+        .chatbot-input button {
+            padding: 12px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+
+        .chatbot-input button:hover {
+            background: var(--primary-dark);
+        }
+
+
+        .suggested-questions {
+            padding: 0 20px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+
+        .question-chip {
+            padding: 8px 16px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            border: none;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+
+        .question-chip:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+            
+            .section-title h2 {
+                font-size: 28px;
+            }
+            
+            .tab-content {
+                padding: 24px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 24px;
+                gap: 20px;
+                box-shadow: var(--shadow-lg);
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: var(--transition);
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .tabs-header {
+                flex-direction: column;
+            }
+            
+            .tab-btn {
+                border-bottom: none;
+                border-right: 3px solid transparent;
+                text-align: left;
+            }
+            
+            .tab-btn.active {
+                border-right-color: var(--primary);
+                border-bottom: none;
+            }
+
+
+            .chatbot-window {
+                width: 320px;
+                height: 450px;
+                right: -20px;
+            }
+        }
+
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 120px 0 60px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .chatbot-window {
+                width: calc(100vw - 48px);
+                right: -12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <i class="fas fa-leaf"></i>
+                    EcoInvest
+                </a>
+                
+                <div class="nav-links">
+                    <a href="#home" class="active">Home</a>
+                    <a href="#companies">Companies</a>
+                    <a href="#tools">Tools</a>
+                    <a href="#insights">Insights</a>
+                    <button class="cta-button" onclick="scrollToSection('tools')">
+                        Get Started
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Invest with Purpose, Grow with Impact</h1>
+                <p>Discover sustainable companies and build ESG-focused portfolios. Make informed investment decisions that align with your values and drive positive change.</p>
+                <div style="display: flex; gap: 16px;">
+                    <button class="cta-button" onclick="scrollToSection('companies')">
+                        Explore Companies
+                        <i class="fas fa-chart-line"></i>
+                    </button>
+                    <button class="cta-button" style="background: transparent; border: 2px solid var(--primary); color: var(--primary);" onclick="scrollToSection('tools')">
+                        <i class="fas fa-play-circle"></i>
+                        Watch Demo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Features Tabs -->
+    <section id="tools">
+        <div class="container">
+            <div class="section-title">
+                <h2>Investment Intelligence Tools</h2>
+                <p>Advanced tools to analyze, compare, and build sustainable portfolios</p>
+            </div>
+            
+            <div class="features-tabs">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="comparison">
+                        <i class="fas fa-balance-scale"></i>
+                        Compare Companies
+                    </button>
+                    <button class="tab-btn" data-tab="portfolio">
+                        <i class="fas fa-chart-pie"></i>
+                        Portfolio Builder
+                    </button>
+                    <button class="tab-btn" data-tab="guides">
+                        <i class="fas fa-book-open"></i>
+                        Learning Guides
+                    </button>
+                </div>
+                
+                <!-- Comparison Tool -->
+                <div class="tab-content active" id="comparison">
+                    <h3 style="margin-bottom: 24px;">Compare ESG Performance</h3>
+                    <p style="color: var(--gray); margin-bottom: 32px;">Select up to 3 companies to analyze their sustainability metrics side by side</p>
+                    
+                    <div class="comparison-grid" id="comparisonContainer">
+                        <!-- Comparison cards will be loaded here -->
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <canvas id="comparisonChart" style="max-height: 400px;"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Builder -->
+                <div class="tab-content" id="portfolio">
+                    <div class="portfolio-grid">
+                        <div class="portfolio-input">
+                            <h3 style="margin-bottom: 24px;">Build Your Portfolio</h3>
+                            
+                            <div id="portfolioItems" style="margin-bottom: 32px;">
+                                <!-- Portfolio items will be added here -->
+                            </div>
+                            
+                            <button class="cta-button" id="addPortfolioItem" style="width: 100%;">
+                                <i class="fas fa-plus"></i>
+                                Add Company
+                            </button>
+                            
+                            <div style="margin-top: 32px;">
+                                <div class="filter-group">
+                                    <label>Total Investment Amount</label>
+                                    <input type="number" id="investmentAmount" value="10000" min="1000" step="1000">
+                                </div>
+                                
+                                <div class="filter-group" style="margin-top: 16px;">
+                                    <label>Investment Horizon</label>
+                                    <select id="timeHorizon">
+                                        <option value="1">1 Year</option>
+                                        <option value="3" selected>3 Years</option>
+                                        <option value="5">5 Years</option>
+                                        <option value="10">10 Years</option>
+                                    </select>
+                                </div>
+                                
+                                <button class="cta-button" id="simulatePortfolio" style="width: 100%; margin-top: 24px;">
+                                    <i class="fas fa-calculator"></i>
+                                    Simulate Portfolio
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="portfolio-results">
+                            <h3 style="margin-bottom: 24px;">Portfolio Analysis</h3>
+                            
+                            <div style="margin-bottom: 32px;">
+                                <div class="metric-item">
+                                    <span class="metric-name">Portfolio ESG Score</span>
+                                    <span class="metric-value" id="portfolioESG">--</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-name">Renewable Energy</span>
+                                    <span class="metric-value" id="portfolioRenewable">--%</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-name">Carbon Neutral</span>
+                                    <span class="metric-value" id="portfolioCarbon">--%</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-name">Women Leadership</span>
+                                    <span class="metric-value" id="portfolioWomen">--%</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-name">Estimated Return</span>
+                                    <span class="metric-value" id="portfolioReturn">--%</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-name">Impact Score</span>
+                                    <span class="metric-value" id="portfolioImpact">--/100</span>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 style="margin-bottom: 16px;">Growth Projection</h4>
+                                <canvas id="portfolioGrowthChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Learning Guides -->
+                <div class="tab-content" id="guides">
+                    <h3 style="margin-bottom: 32px;">Sustainable Investing Guides</h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+                        <div style="background: var(--light); padding: 32px; border-radius: var(--radius);">
+                            <div style="font-size: 32px; color: var(--primary); margin-bottom: 16px;">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <h4 style="margin-bottom: 12px;">ESG Investing 101</h4>
+                            <p style="color: var(--gray); margin-bottom: 20px;">Learn the fundamentals of Environmental, Social, and Governance investing principles.</p>
+                            <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">
+                                Read Guide <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        
+                        <div style="background: var(--light); padding: 32px; border-radius: var(--radius);">
+                            <div style="font-size: 32px; color: var(--primary); margin-bottom: 16px;">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h4 style="margin-bottom: 12px;">Portfolio Construction</h4>
+                            <p style="color: var(--gray); margin-bottom: 20px;">Build diversified portfolios that balance financial returns with sustainability goals.</p>
+                            <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">
+                                Read Guide <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        
+                        <div style="background: var(--light); padding: 32px; border-radius: var(--radius);">
+                            <div style="font-size: 32px; color: var(--primary); margin-bottom: 16px;">
+                                <i class="fas fa-filter"></i>
+                            </div>
+                            <h4 style="margin-bottom: 12px;">Metrics & Analysis</h4>
+                            <p style="color: var(--gray); margin-bottom: 20px;">Understand how to interpret ESG scores and sustainability metrics effectively.</p>
+                            <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">
+                                Read Guide <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Filters -->
+    <section style="padding-top: 0;">
+        <div class="container">
+            <div style="background: var(--white); padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow-md);">
+                <h3 style="margin-bottom: 24px;">Filter Companies</h3>
+                
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label for="sector">Industry Sector</label>
+                        <select id="sector">
+                            <option value="all">All Sectors</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Automotive">Automotive</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Energy">Energy</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="esgScore">Min ESG Score</label>
+                        <input type="range" id="esgScore" min="70" max="100" value="70">
+                        <span id="esgScoreValue" style="font-size: 14px; color: var(--primary);">70</span>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="renewable">Renewable Energy %</label>
+                        <input type="range" id="renewable" min="0" max="100" value="0">
+                        <span id="renewableValue" style="font-size: 14px; color: var(--primary);">0%</span>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="womenLeadership">Women Leadership</label>
+                        <select id="womenLeadership">
+                            <option value="all">All</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="filter-actions">
+                    <button class="cta-button" id="applyFilters">
+                        Apply Filters
+                    </button>
+                    <button class="cta-button" id="resetFilters" style="background: transparent; border: 2px solid var(--gray-light); color: var(--dark);">
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Companies Table -->
+    <section id="companies">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sustainable Companies</h2>
+                <p>Explore companies leading in ESG performance</p>
+            </div>
+            
+            <div class="table-container">
+                <table id="companiesTable">
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Sector</th>
+                            <th>ESG Score</th>
+                            <th>Renewable</th>
+                            <th>Carbon</th>
+                            <th>Women</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="companiesTableBody">
+                        <!-- Companies will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="text-align: center; margin-top: 32px; color: var(--gray);">
+                <p id="resultsCount">Showing 0 companies</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Charts Section -->
+    <section id="insights" style="background: var(--light);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Market Insights</h2>
+                <p>Data-driven analysis of sustainable investing trends</p>
+            </div>
+            
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>ESG Score Distribution</h3>
+                    <canvas id="esgDistributionChart"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <h3>Sector Performance</h3>
+                    <canvas id="renewableBySectorChart"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <h3>5-Year Trends</h3>
+                    <canvas id="trendChart"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <h3>Top Performers</h3>
+                    <canvas id="topPerformersChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-leaf"></i>
+                        EcoInvest
+                    </div>
+                    <p class="footer-description">
+                        Empowering investors to make sustainable choices through data-driven insights and intelligent tools.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#companies">Companies</a></li>
+                        <li><a href="#tools">Tools</a></li>
+                        <li><a href="#insights">Insights</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p>
+                        <i class="fas fa-map-marker-alt"></i>
+                        Pune, Maharashtra
+                    </p>
+                    <p>
+                        <i class="fas fa-envelope"></i>
+                        ecoinvest@gmail.com
+                    </p>
+                </div>
+            </div>
+            
+            <div class="footer-creators">
+                <div>Created by</div>
+                <div class="creator-names">Sia Oberoi, Eshita Reddy, Jaanvi Rai</div>
+                <div style="margin-top: 16px; font-size: 12px;">© 2024 EcoInvest. All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container">
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h3><i class="fas fa-robot"></i> EcoInvest Assistant</h3>
+                <button class="chatbot-close" id="chatbotClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <!-- Messages will be added here -->
+            </div>
+            <div class="suggested-questions">
+                <button class="question-chip" onclick="askQuestion('What is ESG investing?')">What is ESG?</button>
+                <button class="question-chip" onclick="askQuestion('How to build a sustainable portfolio?')">Portfolio Tips</button>
+                <button class="question-chip" onclick="askQuestion('What companies have high ESG scores?')">Top Companies</button>
+                <button class="question-chip" onclick="askQuestion('Explain carbon neutrality')">Carbon Neutrality</button>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbotInput" placeholder="Ask about sustainable investing..." onkeypress="handleChatInput(event)">
+                <button id="chatbotSend">
+                    <i class="fas fa-paper-plane"></i> Send
+                </button>
+            </div>
+        </div>
+        <button class="chatbot-toggle pulse" id="chatbotToggle">
+            <i class="fas fa-comment-dots"></i>
+        </button>
+    </div>
+
+
+    <script>
+        // Company data
+        const companiesData = [
+            { name: "Microsoft", sector: "Technology", esg: 87, women: "Yes", waste: 10, fund: "Yes", renewable: 94, carbon: "Yes", trend: [82, 84, 85, 86, 87] },
+            { name: "Apple", sector: "Automotive", esg: 84, women: "Yes", waste: 8, fund: "No", renewable: 88, carbon: "Yes", trend: [78, 80, 81, 83, 84] },
+            { name: "Alphabet", sector: "Automotive", esg: 79, women: "Yes", waste: 7, fund: "Yes", renewable: 84, carbon: "Yes", trend: [72, 74, 76, 78, 79] },
+            { name: "Adobe", sector: "Technology", esg: 91, women: "Yes", waste: 8, fund: "No", renewable: 82, carbon: "No", trend: [85, 87, 88, 90, 91] },
+            { name: "Tesla", sector: "Consulting", esg: 95, women: "Yes", waste: 6, fund: "No", renewable: 88, carbon: "Yes", trend: [88, 90, 92, 94, 95] },
+            { name: "Toyota", sector: "Healthcare", esg: 96, women: "No", waste: 10, fund: "No", renewable: 69, carbon: "Yes", trend: [90, 92, 93, 94, 96] },
+            { name: "BMW", sector: "Consumer", esg: 87, women: "Yes", waste: 8, fund: "No", renewable: 79, carbon: "No", trend: [80, 82, 84, 86, 87] },
+            { name: "Unilever", sector: "Consumer", esg: 92, women: "Yes", waste: 10, fund: "No", renewable: 98, carbon: "Yes", trend: [86, 88, 90, 91, 92] }
+        ];
+
+
+        let selectedCompanies = [];
+        let charts = {};
+
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCompaniesTable(companiesData);
+            initializeComparisonTool();
+            initializePortfolio();
+            createCharts(companiesData);
+            setupFilters();
+            setupTabs();
+            setupMobileMenu();
+            setupChatbot();
+        });
+
+
+        // Mobile menu
+        function setupMobileMenu() {
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            menuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+            
+            // Close menu when clicking a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                });
+            });
+        }
+
+
+        // Scroll to section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+
+        // Setup tabs
+        function setupTabs() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tabId = btn.getAttribute('data-tab');
+                    
+                    // Update active tab
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Show active content
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        }
+
+
+        // Load companies table
+        function loadCompaniesTable(companies) {
+            const tableBody = document.getElementById('companiesTableBody');
+            tableBody.innerHTML = '';
+            
+            companies.forEach(company => {
+                const row = document.createElement('tr');
+                const isSelected = selectedCompanies.some(c => c.name === company.name);
+                
+                row.innerHTML = `
+                    <td><strong>${company.name}</strong></td>
+                    <td><span class="badge badge-gray">${company.sector}</span></td>
+                    <td><span class="badge badge-green">${company.esg}</span></td>
+                    <td>${company.renewable}%</td>
+                    <td>${company.carbon}</td>
+                    <td>${company.women}</td>
+                    <td>
+                        <button class="cta-button" style="padding: 8px 16px; font-size: 13px;" onclick="toggleCompanySelection('${company.name}')">
+                            ${isSelected ? 'Selected' : 'Select'}
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            document.getElementById('resultsCount').textContent = `Showing ${companies.length} companies`;
+        }
+
+
+        // Toggle company selection
+        function toggleCompanySelection(companyName) {
+            const company = companiesData.find(c => c.name === companyName);
+            
+            if (selectedCompanies.some(c => c.name === companyName)) {
+                selectedCompanies = selectedCompanies.filter(c => c.name !== companyName);
+            } else {
+                if (selectedCompanies.length < 3) {
+                    selectedCompanies.push(company);
+                } else {
+                    alert('Maximum 3 companies can be selected for comparison');
+                    return;
+                }
+            }
+            
+            loadCompaniesTable(companiesData);
+            updateComparisonTool();
+        }
+
+
+        // Initialize comparison tool
+        function initializeComparisonTool() {
+            updateComparisonTool();
+        }
+
+
+        // Update comparison tool
+        function updateComparisonTool() {
+            const container = document.getElementById('comparisonContainer');
+            container.innerHTML = '';
+            
+            // Add cards for selected companies
+            selectedCompanies.forEach((company, index) => {
+                const card = document.createElement('div');
+                card.className = 'comparison-card';
+                card.innerHTML = `
+                    <h4>${company.name}</h4>
+                    <p style="color: var(--gray); margin-bottom: 24px; font-size: 14px;">${company.sector}</p>
+                    
+                    <div class="metric-item">
+                        <span class="metric-name">ESG Score</span>
+                        <span class="metric-value">${company.esg}</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-name">Renewable Energy</span>
+                        <span class="metric-value">${company.renewable}%</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-name">Waste Reduction</span>
+                        <span class="metric-value">${company.waste}/10</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-name">Carbon Neutral</span>
+                        <span class="metric-value">${company.carbon}</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-name">Women Leadership</span>
+                        <span class="metric-value">${company.women}</span>
+                    </div>
+                    
+                    <button onclick="removeFromComparison(${index})" class="cta-button" style="width: 100%; margin-top: 24px; background: transparent; border: 1px solid var(--gray-light); color: var(--gray);">
+                        Remove
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+            
+            // Add empty slots
+            for (let i = selectedCompanies.length; i < 3; i++) {
+                const card = document.createElement('div');
+                card.className = 'comparison-card';
+                card.style.display = 'flex';
+                card.style.flexDirection = 'column';
+                card.style.alignItems = 'center';
+                card.style.justifyContent = 'center';
+                card.innerHTML = `
+                    <div style="font-size: 48px; color: var(--gray-light); margin-bottom: 16px;">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <p style="color: var(--gray); text-align: center;">Select a company from the table</p>
+                    <select onchange="addToComparison(this.value)" style="margin-top: 16px; width: 100%;">
+                        <option value="">Choose company...</option>
+                        ${companiesData
+                            .filter(c => !selectedCompanies.some(sc => sc.name === c.name))
+                            .map(c => `<option value="${c.name}">${c.name}</option>`)
+                            .join('')}
+                    </select>
+                `;
+                container.appendChild(card);
+            }
+            
+            updateComparisonChart();
+        }
+
+
+        // Add to comparison
+        function addToComparison(companyName) {
+            if (!companyName) return;
+            const company = companiesData.find(c => c.name === companyName);
+            if (company && selectedCompanies.length < 3) {
+                selectedCompanies.push(company);
+                loadCompaniesTable(companiesData);
+                updateComparisonTool();
+            }
+        }
+
+
+        // Remove from comparison
+        function removeFromComparison(index) {
+            selectedCompanies.splice(index, 1);
+            loadCompaniesTable(companiesData);
+            updateComparisonTool();
+        }
+
+
+        // Update comparison chart
+        function updateComparisonChart() {
+            if (selectedCompanies.length === 0) return;
+            
+            const ctx = document.getElementById('comparisonChart').getContext('2d');
+            
+            if (charts.comparisonChart) {
+                charts.comparisonChart.destroy();
+            }
+            
+            const metrics = ['ESG', 'Renewable', 'Waste', 'Carbon', 'Women'];
+            const datasets = selectedCompanies.map((company, index) => {
+                const colors = ['#10B981', '#0F766E', '#059669'];
+                return {
+                    label: company.name,
+                    data: [
+                        company.esg,
+                        company.renewable,
+                        company.waste * 10,
+                        company.carbon === 'Yes' ? 100 : 0,
+                        company.women === 'Yes' ? 100 : 0
+                    ],
+                    backgroundColor: colors[index] + '20',
+                    borderColor: colors[index],
+                    borderWidth: 2,
+                    pointBackgroundColor: colors[index],
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 6
+                };
+            });
+            
+            charts.comparisonChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: metrics,
+                    datasets: datasets
+                },
+                options: {
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                stepSize: 20,
+                                color: 'rgba(0,0,0,0.1)'
+                            },
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+
+        // Initialize portfolio
+        function initializePortfolio() {
+            document.getElementById('addPortfolioItem').addEventListener('click', addPortfolioItem);
+            document.getElementById('simulatePortfolio').addEventListener('click', simulatePortfolio);
+            addPortfolioItem();
+        }
+
+
+        // Add portfolio item
+        function addPortfolioItem() {
+            const container = document.getElementById('portfolioItems');
+            const id = Date.now();
+            
+            const item = document.createElement('div');
+            item.style.display = 'grid';
+            item.style.gridTemplateColumns = '2fr 1fr auto';
+            item.style.gap = '12px';
+            item.style.marginBottom = '16px';
+            item.style.alignItems = 'center';
+            
+            item.innerHTML = `
+                <select class="portfolio-company" style="padding: 12px; border: 1px solid var(--gray-light); border-radius: var(--radius-sm);">
+                    <option value="">Select Company</option>
+                    ${companiesData.map(c => `<option value="${c.name}">${c.name}</option>`).join('')}
+                </select>
+                <input type="number" class="portfolio-amount" value="1000" min="100" step="100" style="padding: 12px; border: 1px solid var(--gray-light); border-radius: var(--radius-sm);">
+                <button onclick="this.parentElement.remove(); updatePortfolioTotal();" style="background: none; border: none; color: var(--gray); cursor: pointer; padding: 8px;">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            container.appendChild(item);
+            updatePortfolioTotal();
+        }
+
+
+        // Update portfolio total
+        function updatePortfolioTotal() {
+            const amounts = document.querySelectorAll('.portfolio-amount');
+            let total = 0;
+            amounts.forEach(input => {
+                total += parseFloat(input.value) || 0;
+            });
+            // Could display total somewhere if needed
+        }
+
+
+        // Simulate portfolio
+        function simulatePortfolio() {
+            const items = document.querySelectorAll('#portfolioItems > div');
+            const investmentAmount = parseFloat(document.getElementById('investmentAmount').value) || 10000;
+            
+            let totalWeightedESG = 0;
+            let totalWeightedRenewable = 0;
+            let carbonNeutralCount = 0;
+            let womenLeadershipCount = 0;
+            let validItems = 0;
+            
+            items.forEach(item => {
+                const companySelect = item.querySelector('.portfolio-company');
+                const amountInput = item.querySelector('.portfolio-amount');
+                
+                const companyName = companySelect.value;
+                const amount = parseFloat(amountInput.value) || 0;
+                
+                if (companyName && amount > 0) {
+                    const company = companiesData.find(c => c.name === companyName);
+                    if (company) {
+                        const weight = amount / investmentAmount;
+                        totalWeightedESG += company.esg * weight;
+                        totalWeightedRenewable += company.renewable * weight;
+                        if (company.carbon === 'Yes') carbonNeutralCount++;
+                        if (company.women === 'Yes') womenLeadershipCount++;
+                        validItems++;
+                    }
+                }
+            });
+            
+            if (validItems === 0) {
+                alert('Please add at least one company to your portfolio');
+                return;
+            }
+            
+            // Calculate metrics
+            const portfolioESG = Math.round(totalWeightedESG);
+            const portfolioRenewable = Math.round(totalWeightedRenewable);
+            const portfolioCarbon = Math.round((carbonNeutralCount / validItems) * 100);
+            const portfolioWomen = Math.round((womenLeadershipCount / validItems) * 100);
+            const portfolioReturn = Math.min(15, Math.max(5, 7 + (portfolioESG - 80) * 0.2));
+            const impactScore = Math.round(portfolioESG * 0.4 + portfolioRenewable * 0.3 + portfolioCarbon * 0.15 + portfolioWomen * 0.15);
+            
+            // Update display
+            document.getElementById('portfolioESG').textContent = portfolioESG;
+            document.getElementById('portfolioRenewable').textContent = portfolioRenewable + '%';
+            document.getElementById('portfolioCarbon').textContent = portfolioCarbon + '%';
+            document.getElementById('portfolioWomen').textContent = portfolioWomen + '%';
+            document.getElementById('portfolioReturn').textContent = portfolioReturn.toFixed(1) + '%';
+            document.getElementById('portfolioImpact').textContent = impactScore + '/100';
+            
+            // Update growth chart
+            updatePortfolioGrowthChart(investmentAmount, portfolioReturn, 3);
+        }
+
+
+        // Update portfolio growth chart
+        function updatePortfolioGrowthChart(initialAmount, annualReturn, years) {
+            const ctx = document.getElementById('portfolioGrowthChart').getContext('2d');
+            
+            if (charts.portfolioGrowthChart) {
+                charts.portfolioGrowthChart.destroy();
+            }
+            
+            const labels = [];
+            const data = [];
+            
+            for (let year = 0; year <= years; year++) {
+                labels.push(`Year ${year}`);
+                const value = initialAmount * Math.pow(1 + annualReturn/100, year);
+                data.push(Math.round(value));
+            }
+            
+            charts.portfolioGrowthChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Portfolio Value',
+                        data: data,
+                        borderColor: '#10B981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+
+        // Setup filters
+        function setupFilters() {
+            const esgSlider = document.getElementById('esgScore');
+            const esgValue = document.getElementById('esgScoreValue');
+            const renewableSlider = document.getElementById('renewable');
+            const renewableValue = document.getElementById('renewableValue');
+            
+            esgSlider.addEventListener('input', function() {
+                esgValue.textContent = this.value;
+            });
+            
+            renewableSlider.addEventListener('input', function() {
+                renewableValue.textContent = this.value + '%';
+            });
+            
+            document.getElementById('applyFilters').addEventListener('click', applyFilters);
+            document.getElementById('resetFilters').addEventListener('click', resetFilters);
+        }
+
+
+        // Apply filters
+        function applyFilters() {
+            const sector = document.getElementById('sector').value;
+            const esgMin = parseInt(document.getElementById('esgScore').value);
+            const renewableMin = parseInt(document.getElementById('renewable').value);
+            const women = document.getElementById('womenLeadership').value;
+            
+            const filtered = companiesData.filter(company => {
+                if (sector !== 'all' && company.sector !== sector) return false;
+                if (company.esg < esgMin) return false;
+                if (company.renewable < renewableMin) return false;
+                if (women !== 'all' && company.women !== women) return false;
+                return true;
+            });
+            
+            loadCompaniesTable(filtered);
+            createCharts(filtered);
+        }
+
+
+        // Reset filters
+        function resetFilters() {
+            document.getElementById('sector').value = 'all';
+            document.getElementById('esgScore').value = 70;
+            document.getElementById('esgScoreValue').textContent = '70';
+            document.getElementById('renewable').value = 0;
+            document.getElementById('renewableValue').textContent = '0%';
+            document.getElementById('womenLeadership').value = 'all';
+            
+            loadCompaniesTable(companiesData);
+            createCharts(companiesData);
+        }
+
+
+        // Create charts
+        function createCharts(companies) {
+            // Prepare data
+            const sectors = [...new Set(companies.map(c => c.sector))];
+            const renewableBySector = sectors.map(sector => {
+                const sectorCompanies = companies.filter(c => c.sector === sector);
+                return Math.round(sectorCompanies.reduce((sum, c) => sum + c.renewable, 0) / sectorCompanies.length);
+            });
+            
+            const topPerformers = [...companies].sort((a, b) => b.esg - a.esg).slice(0, 5);
+            
+            // Destroy existing charts
+            Object.values(charts).forEach(chart => {
+                if (chart && typeof chart.destroy === 'function') {
+                    chart.destroy();
+                }
+            });
+            
+            // ESG Distribution Chart
+            const esgCtx = document.getElementById('esgDistributionChart').getContext('2d');
+            charts.esgDistributionChart = new Chart(esgCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['70-79', '80-84', '85-89', '90-94', '95+'],
+                    datasets: [{
+                        label: 'Companies',
+                        data: [
+                            companies.filter(c => c.esg >= 70 && c.esg < 80).length,
+                            companies.filter(c => c.esg >= 80 && c.esg < 85).length,
+                            companies.filter(c => c.esg >= 85 && c.esg < 90).length,
+                            companies.filter(c => c.esg >= 90 && c.esg < 95).length,
+                            companies.filter(c => c.esg >= 95).length
+                        ],
+                        backgroundColor: '#10B981',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Renewable by Sector Chart
+            const renewableCtx = document.getElementById('renewableBySectorChart').getContext('2d');
+            charts.renewableBySectorChart = new Chart(renewableCtx, {
+                type: 'bar',
+                data: {
+                    labels: sectors,
+                    datasets: [{
+                        label: 'Renewable %',
+                        data: renewableBySector,
+                        backgroundColor: '#0F766E',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Trend Chart
+            const trendCtx = document.getElementById('trendChart').getContext('2d');
+            charts.trendChart = new Chart(trendCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2019', '2020', '2021', '2022', '2023'],
+                    datasets: [{
+                        label: 'Average ESG Score',
+                        data: [82, 84, 86, 88, 90],
+                        borderColor: '#10B981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 70,
+                            max: 100,
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Top Performers Chart
+            const topCtx = document.getElementById('topPerformersChart').getContext('2d');
+            charts.topPerformersChart = new Chart(topCtx, {
+                type: 'bar',
+                data: {
+                    labels: topPerformers.map(c => c.name),
+                    datasets: [
+                        {
+                            label: 'ESG Score',
+                            data: topPerformers.map(c => c.esg),
+                            backgroundColor: '#10B981',
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'Renewable %',
+                            data: topPerformers.map(c => c.renewable),
+                            backgroundColor: '#0F766E',
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+
+        // AI Chatbot Functions
+        function setupChatbot() {
+            const toggleBtn = document.getElementById('chatbotToggle');
+            const closeBtn = document.getElementById('chatbotClose');
+            const window = document.getElementById('chatbotWindow');
+            const sendBtn = document.getElementById('chatbotSend');
+            const input = document.getElementById('chatbotInput');
+            
+            toggleBtn.addEventListener('click', () => {
+                window.classList.toggle('active');
+                toggleBtn.classList.remove('pulse');
+                
+                // Add welcome message if first time opening
+                const messagesContainer = document.getElementById('chatbotMessages');
+                if (messagesContainer.children.length === 0) {
+                    addBotMessage("Hello! I'm your EcoInvest Assistant. I can help you with questions about sustainable investing, ESG scores, portfolio building, and more. How can I assist you today?");
+                }
+            });
+            
+            closeBtn.addEventListener('click', () => {
+                window.classList.remove('active');
+            });
+            
+            sendBtn.addEventListener('click', sendMessage);
+            
+            // Auto-focus input when chatbot opens
+            window.addEventListener('transitionend', () => {
+                if (window.classList.contains('active')) {
+                    input.focus();
+                }
+            });
+        }
+
+
+        function handleChatInput(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+
+        function sendMessage() {
+            const input = document.getElementById('chatbotInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addUserMessage(message);
+                input.value = '';
+                
+                // Show typing indicator
+                showTypingIndicator();
+                
+                // Simulate AI thinking and response
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    const response = generateAIResponse(message);
+                    addBotMessage(response);
+                }, 1000 + Math.random() * 1000);
+            }
+        }
+
+
+        function askQuestion(question) {
+            const input = document.getElementById('chatbotInput');
+            input.value = question;
+            sendMessage();
+        }
+
+
+        function addUserMessage(text) {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user';
+            messageDiv.innerHTML = `<div class="message-content">${text}</div>`;
+            messagesContainer.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+
+        function addBotMessage(text) {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot';
+            messageDiv.innerHTML = `<div class="message-content">${text}</div>`;
+            messagesContainer.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = `
+                <div class="message-typing">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            `;
+            messagesContainer.appendChild(typingDiv);
+            scrollToBottom();
+        }
+
+
+        function removeTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+
+        function scrollToBottom() {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+
+        function generateAIResponse(userMessage) {
+            const lowerMessage = userMessage.toLowerCase();
+            
+            // Predefined responses for common questions
+            const responses = {
+                // ESG Questions
+                'what is esg': "ESG stands for Environmental, Social, and Governance. It's a framework used to assess a company's sustainability and ethical impact. Environmental factors include carbon emissions and renewable energy use. Social factors consider employee treatment and community impact. Governance covers leadership diversity and transparency.",
+                'esg investing': "ESG investing involves selecting companies based on their environmental, social, and governance performance. Research shows that companies with strong ESG practices often demonstrate better risk management and long-term profitability. The average ESG score in our database is 87.",
+                'esg score': "ESG scores range from 0-100, with higher scores indicating better sustainability performance. Scores above 80 are considered excellent. In our platform, companies like Tesla (95), Toyota (96), and Unilever (92) have some of the highest ESG scores.",
+                
+                // Portfolio Questions
+                'portfolio': "To build a sustainable portfolio: 1) Diversify across sectors, 2) Focus on companies with ESG scores above 80, 3) Include leaders in renewable energy, 4) Consider carbon-neutral companies, 5) Balance with financial returns. Use our Portfolio Builder tool to simulate different combinations.",
+                'sustainable portfolio': "A well-balanced sustainable portfolio typically includes: Technology companies for innovation (like Microsoft, Adobe), Automotive leaders in electric vehicles (like Tesla), and Consumer goods companies with strong sustainability programs (like Unilever).",
+                
+                // Company Questions
+                'top companies': "Our top ESG performers are: 1) Toyota (96) - Healthcare sector, 2) Tesla (95) - Consulting/EV sector, 3) Unilever (92) - Consumer goods, 4) Adobe (91) - Technology, 5) Microsoft (87) - Technology. These companies excel in different sustainability metrics.",
+                'high esg': "Companies with the highest ESG scores in our database: Toyota (96), Tesla (95), Unilever (92), Adobe (91), and Microsoft (87). These companies lead in various sustainability metrics including renewable energy adoption and carbon neutrality.",
+                
+                // Specific Metrics
+                'renewable energy': "Renewable energy percentage measures how much of a company's energy comes from renewable sources like solar, wind, or hydro. Unilever leads with 98% renewable energy, followed by Microsoft (94%) and Apple (88%).",
+                'carbon neutral': "Carbon neutrality means a company's net carbon emissions are zero. In our database, Microsoft, Apple, Alphabet, Tesla, Toyota, and Unilever are carbon neutral. Adobe and BMW are currently not carbon neutral.",
+                'women leadership': "Women leadership indicates whether a company has women in executive positions. All companies in our database except Toyota have women in leadership roles, showing good progress in gender diversity.",
+                
+                // Comparison Questions
+                'compare': "You can compare up to 3 companies using our Comparison Tool. Select companies from the table to see their ESG scores, renewable energy percentages, carbon neutrality status, and other metrics side by side with visual charts.",
+                
+                // General Help
+                'help': "I can help you with: Understanding ESG investing, Finding top sustainable companies, Building portfolios, Explaining sustainability metrics, Comparing companies, and General sustainable investing advice. Try asking about specific companies or metrics!",
+                
+                // Default response
+                'default': "I'm your EcoInvest Assistant! I can help you understand sustainable investing concepts, analyze companies in our database, explain ESG metrics, and guide you in building sustainable portfolios. Try asking about specific companies, ESG scores, or portfolio strategies."
+            };
+            
+            // Check for keywords and return appropriate response
+            if (lowerMessage.includes('what is esg') || lowerMessage.includes('esg meaning')) {
+                return responses['what is esg'];
+            } else if (lowerMessage.includes('esg investing') || lowerMessage.includes('sustainable investing')) {
+                return responses['esg investing'];
+            } else if (lowerMessage.includes('esg score') || lowerMessage.includes('score')) {
+                return responses['esg score'];
+            } else if (lowerMessage.includes('portfolio') || lowerMessage.includes('invest')) {
+                return responses['portfolio'];
+            } else if (lowerMessage.includes('build') && lowerMessage.includes('portfolio')) {
+                return responses['sustainable portfolio'];
+            } else if (lowerMessage.includes('top') && (lowerMessage.includes('company') || lowerMessage.includes('performer'))) {
+                return responses['top companies'];
+            } else if (lowerMessage.includes('high esg') || lowerMessage.includes('best esg')) {
+                return responses['high esg'];
+            } else if (lowerMessage.includes('renewable') || lowerMessage.includes('energy')) {
+                return responses['renewable energy'];
+            } else if (lowerMessage.includes('carbon') || lowerMessage.includes('neutral')) {
+                return responses['carbon neutral'];
+            } else if (lowerMessage.includes('women') || lowerMessage.includes('diversity') || lowerMessage.includes('gender')) {
+                return responses['women leadership'];
+            } else if (lowerMessage.includes('compare') || lowerMessage.includes('comparison')) {
+                return responses['compare'];
+            } else if (lowerMessage.includes('help') || lowerMessage.includes('what can you do')) {
+                return responses['help'];
+            } else if (lowerMessage.includes('microsoft') || lowerMessage.includes('apple') || lowerMessage.includes('tesla') || 
+                       lowerMessage.includes('toyota') || lowerMessage.includes('unilever') || lowerMessage.includes('adobe') ||
+                       lowerMessage.includes('alphabet') || lowerMessage.includes('bmw')) {
+                return generateCompanySpecificResponse(lowerMessage);
+            } else {
+                return responses['default'];
+            }
+        }
+
+
+        function generateCompanySpecificResponse(message) {
+            // Find mentioned companies
+            const mentionedCompanies = companiesData.filter(company => 
+                message.includes(company.name.toLowerCase())
+            );
+            
+            if (mentionedCompanies.length === 0) {
+                return "I couldn't find information about that specific company in our database. We currently track Microsoft, Apple, Alphabet, Adobe, Tesla, Toyota, BMW, and Unilever.";
+            }
+            
+            let response = "";
+            
+            mentionedCompanies.forEach(company => {
+                response += `${company.name} has an ESG score of ${company.esg} and uses ${company.renewable}% renewable energy. `;
+                response += `They are ${company.carbon === 'Yes' ? 'carbon neutral' : 'not carbon neutral'} and ${company.women === 'Yes' ? 'have' : 'do not have'} women in leadership. `;
+                response += `Their waste reduction score is ${company.waste}/10. `;
+                
+                // Add sector-specific advice
+                if (company.sector === 'Technology') {
+                    response += `As a technology company, they focus on energy-efficient data centers and sustainable product design. `;
+                } else if (company.sector === 'Automotive') {
+                    response += `As an automotive company, they're leading in electric vehicle technology and sustainable manufacturing. `;
+                } else if (company.sector === 'Consumer') {
+                    response += `As a consumer goods company, they emphasize sustainable sourcing and circular economy principles. `;
+                }
+                
+                response += `<br><br>`;
+            });
+            
+            return response;
+        }
+    </script>
+</body>
+</html>
