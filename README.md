@@ -55,14 +55,17 @@ Lightweight MVP:runs locally or can be deployed online with minimal configuratio
 3. Hero Content: 
    ○ Headline: "Invest with Purpose, Grow with Impact" 
    ○ Subtext: Value proposition about sustainable investing 
-   ○ Two CTA Buttons: 
+   ○ Two CTA Buttons:
+   
                     ■ Primary: "Explore Companies" (green) 
                     ■ Secondary: "Watch Demo" (outline green)
 
 **INVESTMENT INTELLIGENCE**
 
 TOOLS 
+
 Tabbed Interface with 3 Tools: 
+
 Tab 1: Compare Companies 
 ● Purpose: Side-by-side ESG metric comparison 
 
