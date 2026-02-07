@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoInvest - Ethical Investment Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0A4D3C;
+            --primary-light: #0F6B52;
+            --accent: #2D9B7A;
+            --text-dark: #1A1A1A;
+            --text-light: #666666;
+            --background: #FFFFFF;
+            --surface: #F8F9FA;
+            --border: #E5E7EB;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text-dark);
+            background: var(--background);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--background);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-light);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(10, 77, 60, 0.2);
+        }
+
+        /* Features */
+        .features {
+            background: var(--surface);
+            padding: 5rem 2rem;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature {
+            text-align: center;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .feature h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .feature p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Questionnaire */
+        .questionnaire {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: none;
+        }
+
+        .questionnaire.active {
+            display: block;
+        }
+
+        .questionnaire h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .questionnaire-intro {
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            font-size: 1.05rem;
+        }
+
+        .question {
+            margin-bottom: 3rem;
+            display: none;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        .question h3 {
+            font-size: 1.35rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            padding: 1.25rem 1.5rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--background);
+        }
+
+        .option:hover {
+            border-color: var(--accent);
+            background: var(--surface);
+        }
+
+        .option.selected {
+            border-color: var(--primary);
+            background: rgba(10, 77, 60, 0.05);
+        }
+
+        .option-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-dark);
+        }
+
+        .option-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .question-nav {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-secondary {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--border);
+            background: var(--background);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-dark);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+        }
+
+        .btn-primary {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Results */
+        .results {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: none;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        .results h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .results-intro {
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            font-size: 1.05rem;
+        }
+
+        .profile-summary {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .profile-summary h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .profile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .tag {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        .recommendations {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .fund-card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            background: var(--background);
+            transition: all 0.2s;
+        }
+
+        .fund-card:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .fund-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .fund-name {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .fund-ticker {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .match-score {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .fund-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .fund-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .metric {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .esg-scores {
+            display: flex;
+            gap: 1rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .esg-score {
+            flex: 1;
+            text-align: center;
+        }
+
+        .esg-label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .esg-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .results-actions {
+            margin-top: 3rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero {
+                padding: 4rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .fund-metrics {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">EcoInvest</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#methodology">Methodology</a></li>
+                <li><a href="#login">Sign In</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Landing Page -->
+    <section id="landing" class="landing">
+        <div class="hero">
+            <h1>Invest in What<br>You Believe In</h1>
+            <p>Align your portfolio with your values. Discover sustainable investments that match your ethical priorities through our data-driven ESG analysis.</p>
+            <button class="cta-button" onclick="startQuestionnaire()">Start Investing Ethically</button>
+        </div>
+
+        <div class="features">
+            <div class="features-container">
+                <div class="feature">
+                    <div class="feature-icon">🌱</div>
+                    <h3>ESG-Aligned</h3>
+                    <p>Rigorously screened funds that meet environmental, social, and governance standards.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h3>Data-Driven</h3>
+                    <p>Institutional-grade analytics and transparent methodology backed by research.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Personalized</h3>
+                    <p>Custom recommendations based on your unique values and investment objectives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Questionnaire -->
+    <section id="questionnaire" class="questionnaire">
+        <h2>Build Your ESG Profile</h2>
+        <p class="questionnaire-intro">Help us understand your values and investment preferences to recommend funds that align with your priorities.</p>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="question active" data-question="1">
+            <h3>What environmental issues matter most to you?</h3>
+            <div class="options">
+                <div class="option" data-value="climate">
+                    <div class="option-title">Climate Action</div>
+                    <div class="option-desc">Carbon reduction, renewable energy, climate resilience</div>
+                </div>
+                <div class="option" data-value="biodiversity">
+                    <div class="option-title">Biodiversity & Conservation</div>
+                    <div class="option-desc">Wildlife protection, deforestation prevention, ecosystem preservation</div>
+                </div>
+                <div class="option" data-value="pollution">
+                    <div class="option-title">Pollution Prevention</div>
+                    <div class="option-desc">Clean water, air quality, waste reduction</div>
+                </div>
+                <div class="option" data-value="circular">
+                    <div class="option-title">Circular Economy</div>
+                    <div class="option-desc">Resource efficiency, recycling, sustainable materials</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question" data-question="2">
+            <h3>Which social priorities are most important?</h3>
+            <div class="options">
+                <div class="option" data-value="labor">
+                    <div class="option-title">Labor Rights</div>
+                    <div class="option-desc">Fair wages, safe working conditions, union support</div>
+                </div>
+                <div class="option" data-value="diversity">
+                    <div class="option-title">Diversity & Inclusion</div>
+                    <div class="option-desc">Gender equality, racial justice, LGBTQ+ rights</div>
+                </div>
+                <div class="option" data-value="community">
+                    <div class="option-title">Community Impact</div>
+                    <div class="option-desc">Local development, education, affordable housing</div>
+                </div>
+                <div class="option" data-value="health">
+                    <div class="option-title">Health & Safety</div>
+                    <div class="option-desc">Product safety, healthcare access, public health</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question" data-question="3">
+            <h3>What governance standards do you expect?</h3>
+            <div class="options">
+                <div class="option" data-value="transparency">
+                    <div class="option-title">Transparency</div>
+                    <div class="option-desc">Open reporting, stakeholder engagement, disclosure</div>
+                </div>
+                <div class="option" data-value="ethics">
+                    <div class="option-title">Business Ethics</div>
+                    <div class="option-desc">Anti-corruption, fair competition, ethical conduct</div>
+                </div>
+                <div class="option" data-value="accountability">
+                    <div class="option-title">Board Accountability</div>
+                    <div class="option-desc">Independent directors, executive compensation alignment</div>
+                </div>
+                <div class="option" data-value="shareholder">
+                    <div class="option-title">Shareholder Rights</div>
+                    <div class="option-desc">Voting rights, fair treatment, long-term value creation</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question" data-question="4">
+            <h3>What is your investment time horizon?</h3>
+            <div class="options">
+                <div class="option" data-value="short">
+                    <div class="option-title">1-3 Years</div>
+                    <div class="option-desc">Short-term goals with moderate ESG screening</div>
+                </div>
+                <div class="option" data-value="medium">
+                    <div class="option-title">3-7 Years</div>
+                    <div class="option-desc">Medium-term growth with balanced ESG integration</div>
+                </div>
+                <div class="option" data-value="long">
+                    <div class="option-title">7-15 Years</div>
+                    <div class="option-desc">Long-term wealth building with strong ESG focus</div>
+                </div>
+                <div class="option" data-value="legacy">
+                    <div class="option-title">15+ Years</div>
+                    <div class="option-desc">Generational wealth with maximum impact prioritization</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question" data-question="5">
+            <h3>What sectors would you prefer to avoid?</h3>
+            <div class="options">
+                <div class="option" data-value="fossil">
+                    <div class="option-title">Fossil Fuels</div>
+                    <div class="option-desc">Oil, gas, coal extraction and production</div>
+                </div>
+                <div class="option" data-value="weapons">
+                    <div class="option-title">Weapons & Defense</div>
+                    <div class="option-desc">Military contractors, firearms manufacturers</div>
+                </div>
+                <div class="option" data-value="tobacco">
+                    <div class="option-title">Tobacco & Alcohol</div>
+                    <div class="option-desc">Production and distribution of harmful substances</div>
+                </div>
+                <div class="option" data-value="gambling">
+                    <div class="option-title">Gambling & Adult Content</div>
+                    <div class="option-desc">Casinos, gaming, adult entertainment</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-nav">
+            <button class="btn-secondary" id="prevBtn" onclick="previousQuestion()" style="display: none;">Previous</button>
+            <button class="btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Next</button>
+        </div>
+    </section>
+
+    <!-- Results -->
+    <section id="results" class="results">
+        <h2>Your Personalized Recommendations</h2>
+        <p class="results-intro">Based on your ESG preferences, we've identified funds that align with your values and investment objectives.</p>
+
+        <div class="profile-summary">
+            <h3>Your ESG Profile</h3>
+            <div class="profile-tags" id="profileTags"></div>
+        </div>
+
+        <div class="recommendations" id="recommendationsList"></div>
+
+        <div class="results-actions">
+            <button class="cta-button" onclick="location.reload()">Start Over</button>
+            <button class="btn-secondary" onclick="alert('Portfolio builder feature coming soon!')">Build Portfolio</button>
+        </div>
+    </section>
+
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 5;
+        const answers = {};
+
+        // Handle option selection
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                const question = this.closest('.question');
+                const questionNum = question.dataset.question;
+                
+                // Remove selected class from siblings
+                question.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // Store answer
+                answers[`q${questionNum}`] = this.dataset.value;
+                
+                // Enable next button
+                document.getElementById('nextBtn').disabled = false;
+            });
+        });
+
+        function startQuestionnaire() {
+            document.getElementById('landing').classList.add('hidden');
+            document.getElementById('questionnaire').classList.add('active');
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion - 1) / totalQuestions) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < totalQuestions) {
+                document.querySelector(`.question[data-question="${currentQuestion}"]`).classList.remove('active');
+                currentQuestion++;
+                document.querySelector(`.question[data-question="${currentQuestion}"]`).classList.add('active');
+                
+                document.getElementById('prevBtn').style.display = 'block';
+                document.getElementById('nextBtn').disabled = !answers[`q${currentQuestion}`];
+                
+                if (currentQuestion === totalQuestions) {
+                    document.getElementById('nextBtn').textContent = 'See Results';
+                }
+                
+                updateProgress();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 1) {
+                document.querySelector(`.question[data-question="${currentQuestion}"]`).classList.remove('active');
+                currentQuestion--;
+                document.querySelector(`.question[data-question="${currentQuestion}"]`).classList.add('active');
+                
+                if (currentQuestion === 1) {
+                    document.getElementById('prevBtn').style.display = 'none';
+                }
+                
+                document.getElementById('nextBtn').textContent = 'Next';
+                document.getElementById('nextBtn').disabled = false;
+                
+                updateProgress();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('questionnaire').classList.remove('active');
+            document.getElementById('results').classList.add('active');
+            
+            // Display profile tags
+            const profileTags = document.getElementById('profileTags');
+            const tagLabels = {
+                climate: 'Climate Action',
+                biodiversity: 'Biodiversity',
+                pollution: 'Pollution Prevention',
+                circular: 'Circular Economy',
+                labor: 'Labor Rights',
+                diversity: 'Diversity & Inclusion',
+                community: 'Community Impact',
+                health: 'Health & Safety',
+                transparency: 'Transparency',
+                ethics: 'Business Ethics',
+                accountability: 'Board Accountability',
+                shareholder: 'Shareholder Rights',
+                short: '1-3 Year Horizon',
+                medium: '3-7 Year Horizon',
+                long: '7-15 Year Horizon',
+                legacy: '15+ Year Horizon',
+                fossil: 'No Fossil Fuels',
+                weapons: 'No Weapons',
+                tobacco: 'No Tobacco/Alcohol',
+                gambling: 'No Gambling'
+            };
+            
+            Object.values(answers).forEach(answer => {
+                const tag = document.createElement('div');
+                tag.className = 'tag';
+                tag.textContent = tagLabels[answer];
+                profileTags.appendChild(tag);
+            });
+            
+            // Generate fund recommendations
+            const funds = generateRecommendations(answers);
+            const recommendationsList = document.getElementById('recommendationsList');
+            
+            funds.forEach(fund => {
+                const card = createFundCard(fund);
+                recommendationsList.appendChild(card);
+            });
+        }
+
+        function generateRecommendations(answers) {
+            // Sample fund data based on preferences
+            const fundDatabase = [
+                {
+                    name: 'Vanguard ESG U.S. Stock ETF',
+                    ticker: 'ESGV',
+                    description: 'Tracks a diversified index of large- and mid-cap U.S. stocks screened for ESG criteria. Strong focus on climate action and corporate governance.',
+                    match: 95,
+                    aum: '$7.2B',
+                    expense: '0.09%',
+                    yield: '1.4%',
+                    return: '12.3%',
+                    esg: { e: 8.9, s: 8.4, g: 9.1 }
+                },
+                {
+                    name: 'iShares MSCI USA ESG Select ETF',
+                    ticker: 'SUSA',
+                    description: 'Targets companies with high ESG ratings relative to sector peers. Emphasizes environmental sustainability and social responsibility.',
+                    match: 92,
+                    aum: '$3.8B',
+                    expense: '0.25%',
+                    yield: '1.2%',
+                    return: '11.8%',
+                    esg: { e: 8.7, s: 8.8, g: 8.5 }
+                },
+                {
+                    name: 'Parnassus Core Equity Fund',
+                    ticker: 'PRBLX',
+                    description: 'Actively managed fund investing in companies with strong ESG practices. Focus on sustainable business models and positive societal impact.',
+                    match: 88,
+                    aum: '$28.4B',
+                    expense: '0.82%',
+                    yield: '0.8%',
+                    return: '13.1%',
+                    esg: { e: 8.5, s: 9.2, g: 8.9 }
+                }
+            ];
+            
+            return fundDatabase;
+        }
+
+        function createFundCard(fund) {
+            const card = document.createElement('div');
+            card.className = 'fund-card';
+            card.innerHTML = `
+                <div class="fund-header">
+                    <div>
+                        <div class="fund-name">${fund.name}</div>
+                        <div class="fund-ticker">${fund.ticker}</div>
+                    </div>
+                    <div class="match-score">${fund.match}% Match</div>
+                </div>
+                <p class="fund-description">${fund.description}</p>
+                <div class="fund-metrics">
+                    <div class="metric">
+                        <div class="metric-label">Assets Under Mgmt</div>
+                        <div class="metric-value">${fund.aum}</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Expense Ratio</div>
+                        <div class="metric-value">${fund.expense}</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Dividend Yield</div>
+                        <div class="metric-value">${fund.yield}</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">1-Year Return</div>
+                        <div class="metric-value">${fund.return}</div>
+                    </div>
+                </div>
+                <div class="esg-scores">
+                    <div class="esg-score">
+                        <div class="esg-label">Environmental</div>
+                        <div class="esg-value">${fund.esg.e}</div>
+                    </div>
+                    <div class="esg-score">
+                        <div class="esg-label">Social</div>
+                        <div class="esg-value">${fund.esg.s}</div>
+                    </div>
+                    <div class="esg-score">
+                        <div class="esg-label">Governance</div>
+                        <div class="esg-value">${fund.esg.g}</div>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+    </script>
+</body>
+</html>
